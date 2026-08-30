@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Chevairi Feedlot</title>
+
+<!-- These tags are the whole point of this page: Apps Script wraps its own
+     HTML inside an iframe, so a browser adding THAT page to the home screen
+     never sees tags like these. This page is a real, un-wrapped top-level
+     page, so Safari/Chrome read them correctly. -->
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Chevairi">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#16321F">
+
+<meta http-equiv="refresh" content="0; url=https://script.google.com/macros/s/AKfycbyWtzAV6Lir5TCBbh2hAhcZhJxovJ90yBxmeh19h2OcQplEsFtRA0Mjn5x_0tbhUwt2/exec">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&display=swap');
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0) 0 0/13px 13px,
+      linear-gradient(155deg,#20492C,#16321F 75%);
+    color:#F3EFE1; font-family:'Space Grotesk',sans-serif;
+    height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:18px; -webkit-font-smoothing:antialiased;
+  }
+  .mark{width:72px;height:72px;border-radius:20px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,0.3);overflow:hidden;}
+  .mark img{width:100%;height:100%;object-fit:contain;}
+  .spin{width:26px;height:26px;border-radius:50%;border:3px solid rgba(255,255,255,0.25);border-top-color:#D4A73D;animation:sp .8s linear infinite;}
+  @keyframes sp{to{transform:rotate(360deg);}}
+  p{font-size:13px;color:#C9DCC2;letter-spacing:.02em;margin:0;}
+</style>
+
+<script>
+  // Belt-and-braces: the meta refresh above handles this in virtually every
+  // case, but a JS redirect fires immediately and doesn't leave this page
+  // in the browser history (so the back button from inside the app doesn't
+  // loop back here).
+  window.location.replace('https://script.google.com/macros/s/AKfycbyWtzAV6Lir5TCBbh2hAhcZhJxovJ90yBxmeh19h2OcQplEsFtRA0Mjn5x_0tbhUwt2/exec');
+</script>
+</head>
+<body>
+  <div class="mark"><img src="apple-touch-icon.png" alt="Chevairi"></div>
+  <div class="spin"></div>
+  <p>Opening Chevairi&hellip;</p>
+</body>
+</html>
