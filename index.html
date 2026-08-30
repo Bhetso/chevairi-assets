@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Chevairi Feedlot</title>
 
-<!-- These tags are the whole point of this page: Apps Script wraps its own
-     HTML inside an iframe, so a browser adding THAT page to the home screen
-     never sees tags like these. This page is a real, un-wrapped top-level
-     page, so Safari/Chrome read them correctly. -->
+<!-- Apps Script wraps its own HTML inside an iframe, so a browser adding
+     THAT page to the home screen never sees tags like these. This page is
+     a real, un-wrapped top-level page, so Safari/Chrome read them
+     correctly, and this is the address that should be Added to Home Screen. -->
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,38 +17,61 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#16321F">
 
-<meta http-equiv="refresh" content="0; url=https://script.google.com/macros/s/AKfycbyWtzAV6Lir5TCBbh2hAhcZhJxovJ90yBxmeh19h2OcQplEsFtRA0Mjn5x_0tbhUwt2/exec">
-
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&display=swap');
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;height:100%;}
   body{
     background:
       radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0) 0 0/13px 13px,
       linear-gradient(155deg,#20492C,#16321F 75%);
-    color:#F3EFE1; font-family:'Space Grotesk',sans-serif;
+    color:#F3EFE1; font-family:'Inter',sans-serif;
     height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:18px; -webkit-font-smoothing:antialiased;
+    gap:16px; -webkit-font-smoothing:antialiased; padding:24px; text-align:center;
   }
-  .mark{width:72px;height:72px;border-radius:20px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,0.3);overflow:hidden;}
+  .mark{width:76px;height:76px;border-radius:20px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,0.3);overflow:hidden;flex-shrink:0;}
   .mark img{width:100%;height:100%;object-fit:contain;}
-  .spin{width:26px;height:26px;border-radius:50%;border:3px solid rgba(255,255,255,0.25);border-top-color:#D4A73D;animation:sp .8s linear infinite;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;margin:2px 0 0;letter-spacing:-.01em;}
+  p{font-size:13px;color:#C9DCC2;line-height:1.5;margin:0;max-width:280px;}
+  .open-btn{
+    margin-top:8px; background:#B5652D; color:#fff; border:none; border-radius:12px;
+    padding:14px 28px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14.5px;
+    text-decoration:none; box-shadow:0 8px 18px rgba(181,101,45,0.35); display:inline-block;
+  }
+  .hint{font-size:11.5px; color:#9FB894; margin-top:18px; max-width:260px; line-height:1.5;}
+  .spin{width:24px;height:24px;border-radius:50%;border:3px solid rgba(255,255,255,0.25);border-top-color:#D4A73D;animation:sp .8s linear infinite;display:none;}
   @keyframes sp{to{transform:rotate(360deg);}}
-  p{font-size:13px;color:#C9DCC2;letter-spacing:.02em;margin:0;}
 </style>
-
-<script>
-  // Belt-and-braces: the meta refresh above handles this in virtually every
-  // case, but a JS redirect fires immediately and doesn't leave this page
-  // in the browser history (so the back button from inside the app doesn't
-  // loop back here).
-  window.location.replace('https://script.google.com/macros/s/AKfycbyWtzAV6Lir5TCBbh2hAhcZhJxovJ90yBxmeh19h2OcQplEsFtRA0Mjn5x_0tbhUwt2/exec');
-</script>
 </head>
 <body>
   <div class="mark"><img src="apple-touch-icon.png" alt="Chevairi"></div>
-  <div class="spin"></div>
-  <p>Opening Chevairi&hellip;</p>
+  <h1>Chevairi Feedlot</h1>
+
+  <div id="installedView" style="display:none;">
+    <div class="spin" style="display:block;"></div>
+    <p>Opening&hellip;</p>
+  </div>
+
+  <div id="browserView">
+    <p>You're viewing this in a browser tab.</p>
+    <a class="open-btn" href="https://script.google.com/macros/s/AKfycbyWtzAV6Lir5TCBbh2hAhcZhJxovJ90yBxmeh19h2OcQplEsFtRA0Mjn5x_0tbhUwt2/exec">Open Chevairi</a>
+    <p class="hint">First time here? Instead of tapping "Open Chevairi," use your browser's Share button and choose "Add to Home Screen" — that installs a proper app icon that skips this page entirely from then on.</p>
+  </div>
+
+<script>
+  // navigator.standalone is true only when this page is already installed
+  // and was launched from a home screen icon (iOS). In that case we forward
+  // straight into the real app with no extra tap. Otherwise (someone just
+  // browsing here normally, e.g. about to Add to Home Screen), we deliberately
+  // do NOT auto-redirect — that's what lets Add to Home Screen capture this
+  // address instead of jumping ahead to script.google.com.
+  const isStandalone = window.navigator.standalone === true ||
+    window.matchMedia('(display-mode: standalone)').matches;
+  if (isStandalone) {
+    document.getElementById('browserView').style.display = 'none';
+    document.getElementById('installedView').style.display = 'block';
+    window.location.replace('https://script.google.com/macros/s/AKfycbyWtzAV6Lir5TCBbh2hAhcZhJxovJ90yBxmeh19h2OcQplEsFtRA0Mjn5x_0tbhUwt2/exec');
+  }
+</script>
 </body>
 </html>
