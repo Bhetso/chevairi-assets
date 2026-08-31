@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Chevairi Management</title>
+
+<!-- Same reasoning as the Farm App's landing page: Apps Script wraps its
+     own HTML inside an iframe, so a browser adding THAT page to the home
+     screen never sees tags like these. This page is real and un-wrapped,
+     so Safari/Chrome read them correctly, and this is the address that
+     should be Added to Home Screen for the Management app. -->
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Chevairi Mgmt">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#16321F">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0) 0 0/13px 13px,
+      linear-gradient(155deg,#20492C,#16321F 75%);
+    color:#F3EFE1; font-family:'Inter',sans-serif;
+    height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:16px; -webkit-font-smoothing:antialiased; padding:24px; text-align:center;
+  }
+  .mark{width:76px;height:76px;border-radius:20px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,0.3);overflow:hidden;flex-shrink:0;}
+  .mark img{width:100%;height:100%;object-fit:contain;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;margin:2px 0 0;letter-spacing:-.01em;}
+  p{font-size:13px;color:#C9DCC2;line-height:1.5;margin:0;max-width:280px;}
+  .open-btn{
+    margin-top:8px; background:#B5652D; color:#fff; border:none; border-radius:12px;
+    padding:14px 28px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14.5px;
+    text-decoration:none; box-shadow:0 8px 18px rgba(181,101,45,0.35); display:inline-block;
+  }
+  .hint{font-size:11.5px; color:#9FB894; margin-top:18px; max-width:260px; line-height:1.5;}
+  .spin{width:24px;height:24px;border-radius:50%;border:3px solid rgba(255,255,255,0.25);border-top-color:#D4A73D;animation:sp .8s linear infinite;display:none;}
+  @keyframes sp{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+  <div class="mark"><img src="apple-touch-icon.png" alt="Chevairi"></div>
+  <h1>Chevairi Management</h1>
+
+  <div id="installedView" style="display:none;">
+    <div class="spin" style="display:block;"></div>
+    <p>Opening&hellip;</p>
+  </div>
+
+  <div id="browserView">
+    <p>You're viewing this in a browser tab.</p>
+    <a class="open-btn" href="https://script.google.com/macros/s/AKfycbyWtzAV6Lir5TCBbh2hAhcZhJxovJ90yBxmeh19h2OcQplEsFtRA0Mjn5x_0tbhUwt2/exec?view=management">Open Management</a>
+    <p class="hint">First time here? Instead of tapping "Open Management," use your browser's Share button and choose "Add to Home Screen" — that installs a proper app icon that skips this page entirely from then on.</p>
+  </div>
+
+<script>
+  // Same standalone-detection trick as the Farm App page: only auto-forward
+  // when this page is already installed and launched from the home screen.
+  // Otherwise (browsing here normally, about to Add to Home Screen), don't
+  // redirect automatically — that's what lets Add to Home Screen capture
+  // this address instead of jumping ahead to script.google.com.
+  const isStandalone = window.navigator.standalone === true ||
+    window.matchMedia('(display-mode: standalone)').matches;
+  if (isStandalone) {
+    document.getElementById('browserView').style.display = 'none';
+    document.getElementById('installedView').style.display = 'block';
+    window.location.replace('https://script.google.com/macros/s/AKfycbyWtzAV6Lir5TCBbh2hAhcZhJxovJ90yBxmeh19h2OcQplEsFtRA0Mjn5x_0tbhUwt2/exec?view=management');
+  }
+</script>
+</body>
+</html>
