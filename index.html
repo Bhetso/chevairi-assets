@@ -73,6 +73,13 @@
     document.getElementById('installedView').style.display = 'block';
     window.location.replace('https://script.google.com/macros/s/AKfycbyWtzAV6Lir5TCBbh2hAhcZhJxovJ90yBxmeh19h2OcQplEsFtRA0Mjn5x_0tbhUwt2/exec');
   }
+
+  // Registering this is what unlocks Chrome's proper "Install app" option
+  // on Android (see sw.js for why) -- harmless no-op on iOS Safari, which
+  // ignores service workers for this purpose entirely.
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  }
 </script>
 </body>
 </html>
